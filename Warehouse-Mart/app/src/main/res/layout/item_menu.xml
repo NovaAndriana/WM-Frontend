@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    app:cardElevation="0dp"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginVertical="1dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/img_menu"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:src="@drawable/product2" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_namamenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="Nama Menu"
+            android:textAlignment="center" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

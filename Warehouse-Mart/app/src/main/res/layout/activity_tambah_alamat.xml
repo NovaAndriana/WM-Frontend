@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.TambahAlamatActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <EditText
+                    android:id="@+id/edt_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"
+                    android:hint="Nama Lengkap *"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <EditText
+                    android:id="@+id/edt_phone"
+                    android:maxLength="14"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"
+                    android:hint="No telp *"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <EditText
+                    android:id="@+id/edt_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:hint="Jalan, No. RT/RW *"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <EditText
+                    android:id="@+id/edt_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"
+                    android:hint="Rumah/Kost/Kantor *"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/div_provinsi"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <Spinner
+                    android:id="@+id/spn_provinsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/div_kota"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <Spinner
+                    android:id="@+id/spn_kota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/div_kecamatan"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <Spinner
+                    android:id="@+id/spn_kecamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"/>
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_google">
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/edt_kodePos"
+                    android:maxLength="6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"
+                    android:hint="Kode POS *"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_simpan"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginVertical="15dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_btn"
+                android:textColor="@color/white"
+                android:paddingHorizontal="15dp"
+                android:text="Simpan"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

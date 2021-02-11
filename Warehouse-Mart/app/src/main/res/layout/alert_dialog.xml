@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_corners"
+    android:gravity="center"
+    android:padding="30dp">
+
+        <ImageButton
+            android:focusable="true"
+            android:clickable="true"
+            android:id="@+id/btn_close"
+            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/x"/>
+
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:srcCompat="@drawable/oops"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ooops"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada koneksi internet nih.."
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:fontFamily="serif"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+    <Button
+        android:id="@+id/btn_coba_lagi"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Coba Lagi"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_btn"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

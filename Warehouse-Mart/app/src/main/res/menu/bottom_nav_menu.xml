@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_baseline_home_white_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_transaksi"
+        android:icon="@drawable/ic_baseline_assignment_24"
+        android:title="Transaksi" />
+    <item
+        android:id="@+id/navigation_keranjang"
+        android:icon="@drawable/ic_baseline_shopping_white_cart_24"
+        android:title="Keranjang" />
+
+    <item
+        android:id="@+id/navigation_akun"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+        android:title="Profile" />
+
+</menu>
