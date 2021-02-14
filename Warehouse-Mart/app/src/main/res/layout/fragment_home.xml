@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:background="@drawable/bg2"
+        android:background="@color/colorPrimary"
         android:padding="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -70,11 +70,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/vp_slider"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/main_header" />
+
+
+            </LinearLayout>
+
+            <!-- Data Menu -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,6 +104,30 @@
                     android:background="@android:color/transparent" />
 
             </LinearLayout>
+
+            <!-- Data Brand Populer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Brand Populer"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_brand_populer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <!-- Data Produk Diskon -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,6 +149,7 @@
 
             </LinearLayout>
 
+            <!-- Data Produk -->
             <LinearLayout
                 android:background="@null"
                 android:orientation="vertical"
@@ -144,6 +176,7 @@
 
             </LinearLayout>
 
+            <!--
             <LinearLayout
                 android:background="@null"
                 android:orientation="vertical"
@@ -166,7 +199,7 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
+            -->
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

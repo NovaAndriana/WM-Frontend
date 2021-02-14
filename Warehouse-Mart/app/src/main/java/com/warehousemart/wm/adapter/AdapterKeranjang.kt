@@ -71,8 +71,8 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>, var 
         val image = "https://warehouse-mart.com/backend/public/uploads/" + data[position].image
         Picasso.get()
                 .load(image)
-                .placeholder(R.drawable.product)
-                .error(R.drawable.product)
+                .placeholder(R.drawable.product2)
+                .error(R.drawable.product2)
                 .into(holder.imgProduk)
 
 
@@ -98,7 +98,6 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>, var 
             if (jumlah <= 1) return@setOnClickListener
 
             jumlah--
-
             produk.jumlah = jumlah
             update(produk)
 

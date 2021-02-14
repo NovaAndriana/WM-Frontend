@@ -40,8 +40,8 @@ class AdapterMenu(var activity: Activity, var data: ArrayList<Menu>) : RecyclerV
         val image = "https://warehouse-mart.com/backend/public/uploads/" + data[position].image
         Picasso.get()
                 .load(image)
-                .placeholder(R.drawable.product)
-                .error(R.drawable.product)
+                .placeholder(R.drawable.product2)
+                .error(R.drawable.product2)
                 .into(holder.imgMenu)
 
         //holder.layout.setOnClickListener {

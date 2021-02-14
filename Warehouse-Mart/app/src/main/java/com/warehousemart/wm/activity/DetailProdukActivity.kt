@@ -140,8 +140,8 @@ class DetailProdukActivity : AppCompatActivity() {
         val img = "https://warehouse-mart.com/backend/public/uploads/" + produk.image
         Picasso.get()
                 .load(img)
-                .placeholder(R.drawable.product)
-                .error(R.drawable.product)
+                .placeholder(R.drawable.product2)
+                .error(R.drawable.product2)
                 .resize(400, 400)
                 .into(image)
 

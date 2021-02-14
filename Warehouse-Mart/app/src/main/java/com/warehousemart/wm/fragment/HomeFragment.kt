@@ -11,11 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.warehousemart.wm.R
-import com.warehousemart.wm.adapter.AdapterMenu
-import com.warehousemart.wm.adapter.AdapterProduk
-import com.warehousemart.wm.adapter.AdapterProdukDiskon
-import com.warehousemart.wm.adapter.AdapterSlider
+import com.warehousemart.wm.adapter.*
 import com.warehousemart.wm.app.ApiConfig
+import com.warehousemart.wm.model.Brand
 import com.warehousemart.wm.model.Menu
 import com.warehousemart.wm.model.Produk
 import com.warehousemart.wm.model.ResponModel
@@ -31,6 +29,7 @@ class HomeFragment : Fragment() {
 
     lateinit var vpSlider: ViewPager
     lateinit var rvMenu: RecyclerView
+    lateinit var rvBrand: RecyclerView
     lateinit var rvProduk: RecyclerView
     //lateinit var rvProdukTerlasir: RecyclerView
     //lateinit var rvElektronik: RecyclerView
@@ -60,19 +59,22 @@ class HomeFragment : Fragment() {
         layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
 
         val layoutManager2 = LinearLayoutManager(activity)
-        layoutManager2.orientation = LinearLayoutManager.VERTICAL
+        layoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-//        val layoutManager3 = LinearLayoutManager(activity)
-//        layoutManager3.orientation = LinearLayoutManager.VERTICAL
+        val layoutManager3 = LinearLayoutManager(activity)
+        layoutManager3.orientation = LinearLayoutManager.VERTICAL
 
         rvMenu.adapter = AdapterMenu(requireActivity(),listMenu)
         rvMenu.layoutManager = layoutManager
 
+        rvBrand.adapter = AdapterBrand(requireActivity(),listBrand)
+        rvBrand.layoutManager = layoutManager1
+
         rvDiskon.adapter = AdapterProdukDiskon(requireActivity(), listProdukdiskon)
-        rvDiskon.layoutManager = layoutManager1
+        rvDiskon.layoutManager = layoutManager2
 
         rvProduk.adapter = AdapterProduk(requireActivity(), listProduk)
-        rvProduk.layoutManager = layoutManager2
+        rvProduk.layoutManager = layoutManager3
         rvProduk.setLayoutManager(manager)
 
 //        rvProdukTerlasir.adapter = AdapterProduk(requireActivity(), listProduk)
@@ -129,10 +131,28 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private var listBrand: ArrayList<Brand> = ArrayList()
+    fun getBrand() {
+        ApiConfig.instanceRetrofit.getBrand().enqueue(object : Callback<ResponModel> {
+            override fun onFailure(call: Call<ResponModel>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<ResponModel>, response: Response<ResponModel>) {
+                val res = response.body()!!
+                if (res.success == 1) {
+                    listBrand = res.databrand
+                    displayProduk()
+                }
+            }
+        })
+    }
+
     fun init(view: View) {
         vpSlider = view.findViewById(R.id.vp_slider)
         rvProduk = view.findViewById(R.id.rv_produk)
         rvMenu = view.findViewById(R.id.rv_menu)
+        rvBrand = view.findViewById(R.id.rv_brand_populer)
         //rvProdukTerlasir = view.findViewById(R.id.rv_produkTerlasir)
         //rvElektronik = view.findViewById(R.id.rv_elektronik)
         rvDiskon = view.findViewById(R.id.rv_diskon)
@@ -142,6 +162,7 @@ class HomeFragment : Fragment() {
         getProduk()
         getProdukDiskon()
         getMenu()
+        getBrand()
         displayProduk()
         super.onResume()
     }

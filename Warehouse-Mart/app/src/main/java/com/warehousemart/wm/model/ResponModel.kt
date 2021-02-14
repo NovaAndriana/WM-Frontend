@@ -6,6 +6,7 @@ class ResponModel {
     var user = User()
     var produk: ArrayList<Produk> = ArrayList()
     var datamenu: ArrayList<Menu> = ArrayList()
+    var databrand: ArrayList<Brand> = ArrayList()
 
     var rajaongkir = ModelAlamat()
 

@@ -1,6 +1,7 @@
 package com.warehousemart.wm.app
 
 import com.warehousemart.wm.model.ResponModel
+import com.warehousemart.wm.model.rajaongkir.ResponOngkir
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -31,6 +32,9 @@ interface ApiService {
     @GET("menu")
     fun getMenu():Call<ResponModel>
 
+    @GET("brandpopuler")
+    fun getBrand():Call<ResponModel>
+
     @GET("province")
     fun getProvinsi(
             @Header("key") key :String
@@ -55,5 +59,5 @@ interface ApiService {
             @Field("destination") destination :String,
             @Field("weight") weight :Int,
             @Field("courier") courier :String
-    ):Call<ResponModel>
+    ):Call<ResponOngkir>
 }
