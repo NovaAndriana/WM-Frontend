@@ -16,6 +16,9 @@ class Helper {
     fun gantiRupiah(value: Int): String {
         return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(value)
     }
+    fun gantiRupiah(value: Boolean): String {
+        return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(value)
+    }
     fun setToolbar(activity: Activity, toolbar: Toolbar, title: String){
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         //supportActionBar!!.title = produk.name

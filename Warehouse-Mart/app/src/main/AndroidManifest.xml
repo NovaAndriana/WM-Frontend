@@ -35,6 +35,9 @@
         <activity android:name="com.warehousemart.wm.activity.PengirimanActivity" />
         <activity android:name="com.warehousemart.wm.activity.ListAlamatActivity" />
         <activity android:name="com.warehousemart.wm.activity.TambahAlamatActivity" />
+        <activity android:name="com.warehousemart.wm.activity.PembayaranActivity" />
+        <activity android:name="com.warehousemart.wm.activity.SuccessActivity" />
+        <activity android:name=".activity.RiwayatActivity" />
     </application>
 
 </manifest>

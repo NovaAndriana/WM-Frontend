@@ -7,4 +7,5 @@ class Result {
     val code = ""
     val costs = ArrayList<Costs>()
 
+
 }

@@ -1,5 +1,6 @@
 package com.warehousemart.wm.app
 
+import com.warehousemart.wm.model.Checkout
 import com.warehousemart.wm.model.ResponModel
 import com.warehousemart.wm.model.rajaongkir.ResponOngkir
 import retrofit2.Call
@@ -21,6 +22,11 @@ interface ApiService {
     fun login(
             @Field("email") email :String,
             @Field("password") password :String
+    ):Call<ResponModel>
+
+    @POST("checkout")
+    fun checkout(
+            @Body data :Checkout
     ):Call<ResponModel>
 
     @GET("produk")

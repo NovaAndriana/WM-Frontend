@@ -104,12 +104,14 @@ class AdapterKeranjang(var activity: Activity, var data: ArrayList<Produk>, var 
             holder.tvJumlah.text = jumlah.toString()
             if (produk.diskon == "0"){
                 var hargajual = 0
-                hargajual = Integer.valueOf(produk.harga_jual)
-                holder.tvHarga.text = Helper().gantiRupiah(hargajual-jumlah)
+                hargajual = produk.harga_jual.toInt()
+                var hasil = hargajual-jumlah
+                holder.tvHarga.text = Helper().gantiRupiah(hasil)
             }else{
                 var hargajualsdiskon = 0
-                hargajualsdiskon = Integer.valueOf(produk.harga_sdiskon)
-                holder.tvHarga.text = Helper().gantiRupiah(hargajualsdiskon-jumlah)
+                hargajualsdiskon = produk.harga_sdiskon.toInt()
+                var hasil = hargajualsdiskon-jumlah
+                holder.tvHarga.text = Helper().gantiRupiah(hasil)
             }
         }
         holder.btnDelete.setOnClickListener {

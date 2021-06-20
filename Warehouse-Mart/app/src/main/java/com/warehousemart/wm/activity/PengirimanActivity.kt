@@ -8,16 +8,24 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.warehousemart.wm.MainActivity
 import com.warehousemart.wm.R
 import com.warehousemart.wm.adapter.AdapterKurir
+import com.warehousemart.wm.app.ApiConfig
 import com.warehousemart.wm.app.ApiConfigAlamat
 import com.warehousemart.wm.helper.Helper
+import com.warehousemart.wm.helper.SharedPref
 import com.warehousemart.wm.model.Alamat
+import com.warehousemart.wm.model.Checkout
+import com.warehousemart.wm.model.ResponModel
 import com.warehousemart.wm.model.rajaongkir.Costs
 import com.warehousemart.wm.model.rajaongkir.ResponOngkir
 import com.warehousemart.wm.room.MyDatabase
 import com.warehousemart.wm.util.ApiKey
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_pengiriman.*
 import kotlinx.android.synthetic.main.activity_pengiriman.btn_tambahAlamat
 import kotlinx.android.synthetic.main.activity_pengiriman.div_kosong
@@ -27,14 +35,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PengirimanActivity : AppCompatActivity() {
+
     lateinit var myDb : MyDatabase
+    var totalHarga = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pengiriman)
-
         Helper().setToolbar(this,toolbar, "Pengiriman")
         myDb = MyDatabase.getInstance(this)!!
+
+        totalHarga = Integer.valueOf(intent.getStringExtra("extra")!!)
+
+        tv_totalBelanja.text = Helper().gantiRupiah(totalHarga)
         mainButton()
         setSpinner()
     }
@@ -96,6 +109,60 @@ class PengirimanActivity : AppCompatActivity() {
         btn_tambahAlamat.setOnClickListener{
             startActivity(Intent(this, ListAlamatActivity::class.java))
         }
+
+        btn_bayar.setOnClickListener {
+            bayar()
+        }
+    }
+
+    private fun bayar(){
+        val user = SharedPref(this).getUser()
+        val a = myDb.daoAlamat().getByStatus(true)!!
+        val listProduk = myDb.daoKeranjang().getAll() as ArrayList
+        var totalItem = 0
+        var totalHarga = 0
+        val produks = ArrayList<Checkout.Item>()
+        for (p in listProduk){
+            if (p.selected && p.diskon == "0"){
+                totalItem += p.jumlah
+                totalHarga += (p.jumlah * Integer.valueOf(p.harga_jual))
+
+                val produk = Checkout.Item()
+                produk.id = "" + p.id
+                produk.total_item = "" + p.jumlah
+                produk.total_harga = "" + (p.jumlah * Integer.valueOf(p.harga_jual))
+                produk.catatan = "Catatan Pengiriman"
+
+                produks.add(produk)
+            } else {
+                totalItem += p.jumlah
+                totalHarga += (p.jumlah * Integer.valueOf(p.harga_sdiskon))
+
+                val produk = Checkout.Item()
+                produk.id = "" + p.id
+                produk.total_item = "" + p.jumlah
+                produk.total_harga = "" + (p.jumlah * Integer.valueOf(p.harga_sdiskon))
+                produk.catatan = "Catatan Pengiriman"
+
+                produks.add(produk)
+            }
+        }
+        val checkuot = Checkout()
+        checkuot.user_id = "" + user!!.id
+        checkuot.total_item = "" + totalItem
+        checkuot.total_harga = "" + totalHarga
+        checkuot.nama = a.name
+        checkuot.phone = a.phone
+        checkuot.jasa_pengiriman = jasaKirim
+        checkuot.ongkir = ongkir
+        checkuot.kurir = kurir
+        checkuot.total_transfer = "" + (totalHarga+Integer.valueOf(ongkir))
+        checkuot.produks = produks
+
+        val json = Gson().toJson(checkuot, Checkout::class.java)
+        val intent = Intent(this,PembayaranActivity::class.java)
+        intent.putExtra("extra",json)
+        startActivity(intent)
     }
 
     private fun getOngkir(kurir:String){
@@ -127,20 +194,55 @@ class PengirimanActivity : AppCompatActivity() {
         })
     }
 
-    private fun displayOngkir(kurir:String, arrayList : ArrayList<Costs>) {
+    var ongkir = ""
+    var jasaKirim = ""
+    var kurir = ""
+    private fun displayOngkir(_kurir:String, arrayList : ArrayList<Costs>) {
+
+        var arrayOngkir = ArrayList<Costs>()
+        for (i in arrayList.indices){
+            val ongkir = arrayList[i]
+            if (i == 0){
+                ongkir.isActive = true
+            }
+            arrayOngkir.add(ongkir)
+        }
+        setTotal(arrayOngkir[0].cost[0].value)
+        ongkir = arrayOngkir[0].cost[0].value
+        kurir = _kurir
+        jasaKirim = arrayOngkir[0].service
+
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_metode.adapter = AdapterKurir(arrayList, kurir, object : AdapterKurir.Listeners {
-            override fun onClicked(data: Alamat) {
+        var adapter: AdapterKurir? = null
+        adapter = AdapterKurir(arrayOngkir, _kurir, object : AdapterKurir.Listeners {
+            override fun onClicked(data: Costs, index: Int) {
+                val newArrayOngkir = ArrayList<Costs>()
+                for (ongkir in arrayOngkir){
+                    ongkir.isActive = data.description == ongkir.description
+                    newArrayOngkir.add(ongkir)
+                }
+                arrayOngkir = newArrayOngkir
+                adapter!!.notifyDataSetChanged()
+                setTotal(data.cost[0].value)
 
+                ongkir = data.cost[0].value
+                kurir = _kurir
+                jasaKirim = data.service
             }
         })
+        rv_metode.adapter = adapter
         rv_metode.layoutManager = layoutManager
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    fun setTotal(ongkir: String){
+        tv_ongkir.text = Helper().gantiRupiah(ongkir)
+        tv_total.text = Helper().gantiRupiah(Integer.valueOf(ongkir) + totalHarga)
     }
 
     override fun onResume() {

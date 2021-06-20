@@ -9,6 +9,7 @@ class ResponModel {
     var databrand: ArrayList<Brand> = ArrayList()
 
     var rajaongkir = ModelAlamat()
+    var transaksi = Transaksi()
 
     var provinsi: ArrayList<ModelAlamat> = ArrayList()
     var kota_kabupaten: ArrayList<ModelAlamat> = ArrayList()
